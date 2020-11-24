@@ -1,1 +1,32 @@
-<p>products works!</p>
+ <div style="background-color: #f5f5f4;">
+ <app-nav></app-nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-6">
+      <br>
+      <h1>All Products</h1>
+      <p>A 360<sup>o</sup> degree look at Lumin</p>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-3 col-sm-12">
+      <br>
+      <select id="filter" >
+        <option value="Filter">Filter</option>
+      </select>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div>
+  <div class="products-container">
+      <div class="product-item"  *ngFor="let product of products$ | async">
+        <img src="{{product.image_url}}" alt="{{product.title}}" class="product-item-image">
+        <p class="product-item-name">{{product.title}}</p>
+        <p class="product-item-price">{{product.price}}</p>
+        <a href="#" class="add-to-cart">Add to Cart</a>
+      </div>
+  </div>
+</div>
+
