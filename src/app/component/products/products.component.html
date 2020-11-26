@@ -21,12 +21,72 @@
 
 <div>
   <div class="products-container">
-      <div class="product-item"  *ngFor="let product of products$ | async">
+    <div *ngIf="loading">Loading products...</div>
+      <div class="product-item"  *ngFor="let product of products">
         <img src="{{product.image_url}}" alt="{{product.title}}" class="product-item-image">
         <p class="product-item-name">{{product.title}}</p>
-        <p class="product-item-price">{{product.price}}</p>
-        <a href="#" class="add-to-cart">Add to Cart</a>
+        <p class="product-item-price" >${{product.price}}</p>
+        <a href="#" class="add-to-cart" (click)="addToCart(product)">Add to Cart</a>
       </div>
   </div>
+
+   <div [className] = "addCart ? 'cart-details-active' : 'cart-details-inactive'">
+    <div class="cart-details-overlay"></div>
+    <div class="cart-details-form">
+      <div class="cart-details-nav">
+        <img src="../../../assets/images/back-button.png" alt="back-button" class="back-button" (click)="goBack()">
+        <p>YOUR CART</p>
+      </div>
+      <div class="cart-details-currency">
+        <select name="currency" id="currency" (change)="changeCurrency($event.target.value)">
+          <option value="USD">USD</option>
+          <option *ngFor="let item of currency | keyvalue" value="{{item.value}}" >{{item.value}}</option>
+        </select>
+      </div>
+
+
+        <div class="cart-details-product">
+          <div class="cart-item" *ngFor="let product of selectedProducts">
+            <p class="cart-item__name">{{product.title}}</p>
+            <div class="cart-item__qty">
+              <span class="increment" (click)="incrementQuantity(product.id)">+</span>
+              <span class="qty">{{product.quantity}}</span>
+              <span class="decrement" (click)="decrementQuantity(product)">-</span>
+            </div>
+            <div class="cart-item__image">
+              <img src="{{product.image_url}}" alt="{{product.title}}" class="image">
+
+            </div>
+            <p class="cart-item__price">
+              {{product.price}}
+            </p>
+            <p class="close" (click)="removeFromCart(product)">x</p>
+          </div>
+        </div>
+
+
+      <div class="cart-footer">
+        <div class="subtotal">
+          <p>Sub Total</p>
+          <p class="subtotal-amount">
+            {{subTotalCost}}
+          </p>
+        </div>
+        <div>
+          <button class="subscription">
+            MAKE THIS A SUBSCRIPTION (SAVE 20%)
+          </button>
+        </div>
+        <div>
+          <button class="checkout" (click)="calculateSubTotalCost()">
+            PROCEED TO CHECKOUT
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>
+
+
 

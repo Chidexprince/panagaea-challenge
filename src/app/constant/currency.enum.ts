@@ -1,4 +1,4 @@
-enum Currency {
+export enum Currency {
   USD = 'USD',
   AED = 'AED',
   AFN = 'AFN',
