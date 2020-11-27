@@ -1,4 +1,4 @@
-An Ecommerce Web Application using Angular and GraphQL
+<h1>An Ecommerce Web Application using Angular and GraphQL</h1>
 
 This project was created with Angular using GraphQL API. 
 It pulls data from this endpoint https://pangaea-interviews.now.sh/api/graphql
