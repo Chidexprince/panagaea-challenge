@@ -29,6 +29,7 @@ export class ProductsComponent implements OnInit {
   public products: any;
   public selectedProducts = [];
   public subTotalCost: number = 0;
+  public subTotal: any;
   private querySubscription: Subscription;
 
   constructor(private apollo: Apollo) { }
@@ -63,7 +64,7 @@ export class ProductsComponent implements OnInit {
     const selectedProduct = product;
 
     const productExists = this.selectedProducts.includes(product)
-    console.log(productExists)
+
     if (!productExists) {
       this.selectedProducts.push(selectedProduct)
       this.calculateSubTotalCost()
@@ -79,6 +80,7 @@ export class ProductsComponent implements OnInit {
 
     if (this.selectedProducts.length == 0) {
       this.subTotalCost = 0;
+      this.subTotal = this.subTotalCost;
     }
   }
 
@@ -115,8 +117,12 @@ export class ProductsComponent implements OnInit {
         return sum + num;
       })
 
+      this.subTotal = this.subTotalCost.toFixed(2);
+
+
     } else {
       this.subTotalCost = 0;
+      this.subTotal = this.subTotalCost;
     }
 
   }
