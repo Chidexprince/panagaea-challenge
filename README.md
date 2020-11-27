@@ -19,7 +19,7 @@ It pulls data from this endpoint https://pangaea-interviews.now.sh/api/graphql</
 
   <h4><mark>ng serve</mark></h4>
 
-<p>This runs the project. Open http://localhost:4200/ in a browser</p>
+<p>This runs the project. Open http://localhost:4200/ in a browser</p> 
 
 
 
