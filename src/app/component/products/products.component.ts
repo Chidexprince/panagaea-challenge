@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Currency } from '../../constant/currency.enum';
 import { Subscription } from 'rxjs';
 
 
@@ -26,7 +25,6 @@ export class ProductsComponent implements OnInit {
 
   public loading = true;
   public addCart = false;
-  public Currency = Currency;
   public currency: any;
   public products: any;
   public selectedProducts = [];
@@ -40,17 +38,17 @@ export class ProductsComponent implements OnInit {
       .watchQuery<any>({
         query: GET_PRODUCTS,
         variables: {
-          currency: Currency.USD
+          currency: 'USD'
         }
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading;
         data.products.map(product => {
           product.quantity = 0;
+          product.currency = 'USD';
         })
         this.products = data.products;
         this.currency = data.currency;
-        console.log(this.products)
       });
 
   }
@@ -59,10 +57,13 @@ export class ProductsComponent implements OnInit {
   addToCart(product) {
     this.addCart = true;
 
+
     product.quantity++;
     this.calculateSubTotalCost()
     const selectedProduct = product;
+
     const productExists = this.selectedProducts.includes(product)
+    console.log(productExists)
     if (!productExists) {
       this.selectedProducts.push(selectedProduct)
       this.calculateSubTotalCost()
@@ -84,7 +85,6 @@ export class ProductsComponent implements OnInit {
   /* Go back to products */
   goBack() {
     this.addCart = false;
-    console.log(this.addCart)
   }
 
   /* Increment the quantity */
@@ -108,45 +108,51 @@ export class ProductsComponent implements OnInit {
   /* Calculate sub total cost */
   calculateSubTotalCost() {
     if (this.selectedProducts.length > 0) {
-      console.log(this.selectedProducts)
-      const priceList = this.selectedProducts.map(product => {
+        console.log(this.selectedProducts)
+      const costArray = this.selectedProducts.map(product => {
        return product.quantity * product.price;
       })
-
-      this.subTotalCost = priceList.reduce((total, num) => {
-        return total + num;
+      this.subTotalCost = costArray.reduce((sum, num) => {
+        return sum + num;
       })
-
-      console.log(this.subTotalCost)
-
+      console.log("$" + this.subTotalCost )
     } else {
       this.subTotalCost = 0;
     }
 
   }
 
+  changeCurrency(cur) {
+    this.setCurrency(cur)
+    this.selectedProducts.forEach(c => {
+      c.currency = cur
+    });
+    console.log(this.selectedProducts)
 
+  }
 
-
-
-  changeCurrency(event) {
+  setCurrency(currency) {
     this.querySubscription = this.apollo
     .watchQuery<any>({
       query: GET_PRODUCTS,
       variables: {
-        currency: event
+        currency: currency
       }
     })
     .valueChanges.subscribe(({ data, loading }) => {
       this.loading = loading;
+      data.products.map(product => {
+        product.quantity = 0;
+        product.currency = currency;
+      })
       this.products = data.products;
       this.currency = data.currency;
-      console.log(this.products)
-      this.calculateSubTotalCost()
-      console.log(this.calculateSubTotalCost())
+      /* console.log(this.products)
+      if (this.selectedProducts.length > 0) {
+        console.log("There are things in the cart")
+      } */
     });
-
-
   }
+
 
 }

@@ -25,12 +25,12 @@
       <div class="product-item"  *ngFor="let product of products">
         <img src="{{product.image_url}}" alt="{{product.title}}" class="product-item-image">
         <p class="product-item-name">{{product.title}}</p>
-        <p class="product-item-price" >${{product.price}}</p>
+        <p class="product-item-price" >{{product.currency == 'USD' ? '$' : product.currency}}{{product.price}}</p>
         <a href="#" class="add-to-cart" (click)="addToCart(product)">Add to Cart</a>
       </div>
   </div>
 
-   <div [className] = "addCart ? 'cart-details-active' : 'cart-details-inactive'">
+   <div [className] = "addCart ? 'cart-info-active' : 'cart-info-inactive'">
     <div class="cart-details-overlay"></div>
     <div class="cart-details-form">
       <div class="cart-details-nav">
@@ -45,20 +45,20 @@
       </div>
 
 
-        <div class="cart-details-product">
+        <div class="cart-details-products">
           <div class="cart-item" *ngFor="let product of selectedProducts">
-            <p class="cart-item__name">{{product.title}}</p>
-            <div class="cart-item__qty">
+            <p class="cart-item-name">{{product.title}}</p>
+            <div class="cart-item-qty">
               <span class="increment" (click)="incrementQuantity(product.id)">+</span>
               <span class="qty">{{product.quantity}}</span>
               <span class="decrement" (click)="decrementQuantity(product)">-</span>
             </div>
-            <div class="cart-item__image">
+            <div class="cart-item-image">
               <img src="{{product.image_url}}" alt="{{product.title}}" class="image">
 
             </div>
-            <p class="cart-item__price">
-              {{product.price}}
+            <p class="cart-item-price">
+              {{product.currency == 'USD' ? '$' : product.currency}}{{product.price}}
             </p>
             <p class="close" (click)="removeFromCart(product)">x</p>
           </div>
@@ -68,7 +68,7 @@
       <div class="cart-footer">
         <div class="subtotal">
           <p>Sub Total</p>
-          <p class="subtotal-amount">
+          <p class="subtotal-cost">
             {{subTotalCost}}
           </p>
         </div>
@@ -78,7 +78,7 @@
           </button>
         </div>
         <div>
-          <button class="checkout" (click)="calculateSubTotalCost()">
+          <button class="checkout">
             PROCEED TO CHECKOUT
           </button>
         </div>
