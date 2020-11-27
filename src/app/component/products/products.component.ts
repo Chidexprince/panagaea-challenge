@@ -91,7 +91,6 @@ export class ProductsComponent implements OnInit {
   incrementQuantity(productId) {
     const productItem = this.selectedProducts.find(product => product.id === productId)
     productItem.quantity += 1
-    console.log(productItem)
     this.calculateSubTotalCost()
   }
 
@@ -108,14 +107,14 @@ export class ProductsComponent implements OnInit {
   /* Calculate sub total cost */
   calculateSubTotalCost() {
     if (this.selectedProducts.length > 0) {
-        console.log(this.selectedProducts)
+
       const costArray = this.selectedProducts.map(product => {
        return product.quantity * product.price;
       })
       this.subTotalCost = costArray.reduce((sum, num) => {
         return sum + num;
       })
-      console.log("$" + this.subTotalCost )
+
     } else {
       this.subTotalCost = 0;
     }
@@ -127,7 +126,6 @@ export class ProductsComponent implements OnInit {
     this.selectedProducts.forEach(c => {
       c.currency = cur
     });
-    console.log(this.selectedProducts)
 
   }
 
@@ -147,10 +145,20 @@ export class ProductsComponent implements OnInit {
       })
       this.products = data.products;
       this.currency = data.currency;
-      /* console.log(this.products)
-      if (this.selectedProducts.length > 0) {
-        console.log("There are things in the cart")
-      } */
+
+      if (this.selectedProducts.length) {
+        console.log("Cart has products")
+        const cart = this.selectedProducts.map(product => {
+          const newProduct = this.products.filter(prod => prod.id == product.id);
+          product.price = newProduct[0].price;
+
+          return product
+
+        })
+
+        this.calculateSubTotalCost()
+
+      }
     });
   }
 
