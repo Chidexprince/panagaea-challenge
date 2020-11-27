@@ -9,15 +9,15 @@ It pulls data from this endpoint https://pangaea-interviews.now.sh/api/graphql</
   <li>You can also convert to so many other curriencies</li>
 </ul>
 
-<h3>Available Script </h3>
+<h2>Available Script </h2>
 
 <p>In the project folder, run:</p>
 
-  <h5 style="background: #444">npm install</h5>
+  <h4><mark>npm install</mark></h4>
 
 <p>To install all dependencies, Then run:<p/>
 
-  <h5 style="background: #444">ng serve</h5>
+  <h4><mark>ng serve</mark></h4>
 
 <p>This runs the project. Open http://localhost:4200/ in a browser</p>
 
