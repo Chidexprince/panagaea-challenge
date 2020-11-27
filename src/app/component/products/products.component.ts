@@ -64,7 +64,7 @@ export class ProductsComponent implements OnInit {
     const selectedProduct = product;
 
     const productExists = this.selectedProducts.includes(product)
-    console.log(productExists)
+
     if (!productExists) {
       this.selectedProducts.push(selectedProduct)
       this.calculateSubTotalCost()
