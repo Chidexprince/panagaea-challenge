@@ -1,5 +1,4 @@
 <h1>An Ecommerce Web Application using Angular and GraphQL</h1>
-<hr>
 
 <p>This project was created with Angular using GraphQL API. 
 It pulls data from this endpoint https://pangaea-interviews.now.sh/api/graphql</p>
@@ -11,7 +10,6 @@ It pulls data from this endpoint https://pangaea-interviews.now.sh/api/graphql</
 </ul>
 
 <h3>Available Script </h3>
-<hr>
 
 <p>In the project folder, run:</p>
 
