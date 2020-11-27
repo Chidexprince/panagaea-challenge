@@ -30,6 +30,7 @@ export class ProductsComponent implements OnInit {
   public selectedProducts = [];
   public subTotalCost: number = 0;
   public subTotal: any;
+  public defCurrency: string;
   private querySubscription: Subscription;
 
   constructor(private apollo: Apollo) { }
@@ -109,6 +110,10 @@ export class ProductsComponent implements OnInit {
   /* Calculate sub total cost */
   calculateSubTotalCost() {
     if (this.selectedProducts.length > 0) {
+      this.selectedProducts.map(prod => {
+        this.defCurrency = prod.currency;
+      })
+
 
       const costArray = this.selectedProducts.map(product => {
        return product.quantity * product.price;
@@ -117,8 +122,11 @@ export class ProductsComponent implements OnInit {
         return sum + num;
       })
 
-      this.subTotal = this.subTotalCost.toFixed(2);
-
+      if (this.defCurrency == 'USD') {
+        this.subTotal = '$' + this.subTotalCost.toFixed(2);
+      } else {
+        this.subTotal = this.defCurrency + this.subTotalCost.toFixed(2);
+      }
 
     } else {
       this.subTotalCost = 0;
@@ -127,6 +135,7 @@ export class ProductsComponent implements OnInit {
 
   }
 
+
   changeCurrency(cur) {
     this.setCurrency(cur)
     this.selectedProducts.forEach(c => {
@@ -134,6 +143,7 @@ export class ProductsComponent implements OnInit {
     });
 
   }
+
 
   setCurrency(currency) {
     this.querySubscription = this.apollo
