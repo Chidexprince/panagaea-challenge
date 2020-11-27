@@ -7,6 +7,7 @@ It pulls data from this endpoint https://pangaea-interviews.now.sh/api/graphql</
   <li>It retreives all the products available and display them on the ecommerce site with their names and prices using Dollar as default currency</li>
   <li>On add to cart, the quantity is calculated along side the cost</li>
   <li>You can also convert to so many other curriencies</li>
+  <li>Changing of currency recalculates cost </li>
 </ul>
 
 <h2>Available Script </h2>
