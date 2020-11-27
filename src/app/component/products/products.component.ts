@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import { Currency } from '../../constant/currency.enum';
 import { Subscription } from 'rxjs';
 
 
@@ -26,7 +25,6 @@ export class ProductsComponent implements OnInit {
 
   public loading = true;
   public addCart = false;
-  public Currency = Currency;
   public currency: any;
   public products: any;
   public selectedProducts = [];
